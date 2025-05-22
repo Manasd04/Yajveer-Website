@@ -1,0 +1,124 @@
+.faq-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    font-family: 'Nunito', sans-serif;
+}
+
+.faq-container h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.faq-container h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, #3498db, #2ecc71);
+    border-radius: 2px;
+}
+
+.faq-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.faq-item {
+    flex: 0 0 calc(50% - 1rem);
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    height: fit-content;
+}
+
+.faq-item:hover {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.faq-question {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    cursor: pointer;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+}
+
+.toggle-icon {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    color: green;
+    transition: transform 0.3s ease;
+    min-width: 24px;
+}
+
+.faq-item.active .toggle-icon {
+    color: green;
+}
+
+.question-text {
+    flex: 1;
+    font-weight: 600;
+    color: #2c3e50;
+    padding-right: 1rem;
+}
+
+
+
+.faq-answer {
+    height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-out;
+    background: #fff;
+    overflow: hidden;
+}
+
+
+
+.faq-answer.show {
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+    padding: 1.5rem;
+}
+
+.faq-answer ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+    list-style-type: disc;
+}
+
+.faq-answer li {
+    margin-bottom: 0.8rem;
+    color: #444;
+    line-height: 1.5;
+}
+
+.faq-answer p {
+    margin-bottom: 1rem;
+    color: #444;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .faq-grid {
+        gap: 1rem;
+    }
+    
+    .faq-item {
+        flex: 0 0 100%;
+    }
+}
