@@ -9,6 +9,7 @@ import ProductDetails from './components/ProductDetails';
 import FAQ from './components/Footer/FAQ';
 import ContactUs from './components/Footer/ContactUs';
 import AboutUs from './components/AboutUs';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/aboutUs" element={<AboutUs></AboutUs>}></Route>
             <Route path="/faq" element={<FAQ></FAQ>}></Route>
             <Route path="/contact" element={<ContactUs></ContactUs>}></Route>
+            <Route path="/privacy" element={<PrivacyPolicy></PrivacyPolicy>}></Route>
         </Routes>
         </>
     )
