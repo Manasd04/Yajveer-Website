@@ -10,6 +10,8 @@ import FAQ from './components/Footer/FAQ';
 import ContactUs from './components/Footer/ContactUs';
 import AboutUs from './components/AboutUs';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsAndConditions from './components/TermsConditions';
+import ShippingPolicy from './components/ShippingPolices';
 
 const App = () => {
   return (
@@ -24,6 +26,8 @@ const App = () => {
             <Route path="/faq" element={<FAQ></FAQ>}></Route>
             <Route path="/contact" element={<ContactUs></ContactUs>}></Route>
             <Route path="/privacy" element={<PrivacyPolicy></PrivacyPolicy>}></Route>
+            <Route path="/terms" element={<TermsAndConditions></TermsAndConditions>}></Route>
+            <Route path="/shipping" element={<ShippingPolicy></ShippingPolicy>}></Route>
         </Routes>
         </>
     )
