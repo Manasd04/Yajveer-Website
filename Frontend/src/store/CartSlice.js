@@ -2,24 +2,28 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
 const Fectchdata = createAsyncThunk(
     'cart/Fectch',
-    async (args , thunkAPI)=> {
+    async (args, thunkAPI) => {
         try {
-            const response = await fetch('cartapi');
+            const response = await fetch('https://yajveer-testing.vercel.app/api/v1/products/');
             const data = await response.json();
-            return data;
+            return data.data;
         } 
         catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
     }
-)
+);
 
 const CartSlice = createSlice({
     name: 'cart',
-    initialState: {data:[], loading:false, error: null},
+    initialState: {
+        data: [],
+        loading: false,
+        error: null
+    },
     reducers: {},
     extraReducers: (builder) => {
-            builder
+        builder
             .addCase(Fectchdata.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -27,6 +31,7 @@ const CartSlice = createSlice({
             .addCase(Fectchdata.fulfilled, (state, action) => {
                 state.data = action.payload;
                 state.loading = false;
+                state.error = null;
             })
             .addCase(Fectchdata.rejected, (state, action) => {
                 state.loading = false;
@@ -36,4 +41,4 @@ const CartSlice = createSlice({
 });
 
 export default CartSlice.reducer;
-export {Fectchdata};
+export { Fectchdata };

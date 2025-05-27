@@ -1,5 +1,5 @@
 import "../../CSS/Home/sidebar1.css";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 export default function Sidebar1({ onClose }) {
    const product = [
     { id: 1, Name: "Diabetes Powder" },
