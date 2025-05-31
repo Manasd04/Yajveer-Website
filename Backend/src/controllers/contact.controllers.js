@@ -4,7 +4,7 @@ import { ApiError } from "../utils/Apierror.js";
 
 export const submitContactForm = async (req, res, next) => {
   try {
-    const { name, email, phone, subject, message } = req.body;
+    const { name , email, phone , subject, message } = req.body;
 
     if (!name || !email || !phone || !subject || !message) {
       throw new ApiError(400, "All fields are required.");

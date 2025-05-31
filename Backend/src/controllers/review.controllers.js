@@ -19,7 +19,7 @@ export const addReview = async (req, res, next) => {
 
     const result = await uploadoncloudinary(req.file.path);
     if (!result || !result.secure_url) {
-      throw new ApiError(500, "Failed to upload photo.");
+      throw new ApiError(500, "Please Upload Another photo!!");
     }
 
     const reviewDoc = await Review.create({

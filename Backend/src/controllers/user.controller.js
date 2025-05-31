@@ -60,7 +60,7 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-  const { email , password } = req.body;
+  const { email, password } = req.body;
   console.log(req.body);
 
   if (!email) {
@@ -92,8 +92,9 @@ const loginUser = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: true,
-    sameSite : "None",
-    maxAge: 30 * 24 * 60 * 60 * 1000,
+    sameSite: "None",
+    maxAge: 24 * 60 * 60 * 1000,
+    // domain : "https://yajveerback.vercel.app"
   };
 
   return res
@@ -117,24 +118,25 @@ const logoutUser = asyncHandler(async (req, res) => {
   if (!req.user?._id) {
     throw new ApiError(401, "Unauthorized: No user to log out");
   }
-
+  console.log("Finding successfully !!");
   await User.findByIdAndUpdate(
     req.user._id,
     {
       $set: {
-        refreshToken: null
+        refreshToken: null,
       },
     },
     { new: true }
   );
 
-  // const isProduction = process.env.NODE_ENV === "production";
+  const isProduction = process.env.NODE_ENV === "production";
 
   const options = {
     httpOnly: true,
-    secure: true, // ✅ Dynamic based on environment
+    secure: true,
     sameSite: "None",
-    maxAge: 30 * 24 * 60 * 60 * 1000,
+    maxAge: 24 * 60 * 60 * 1000,
+    // domain : "https://yajveerback.vercel.app"
   };
 
   return res
@@ -144,4 +146,54 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json({ success: true, message: "Logged out successfully" });
 });
 
-export { registerUser, loginUser, logoutUser };
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  if (!email) throw new ApiError(400, "Email is required");
+
+  const user = await User.findOne({ email });
+  if (!user) throw new ApiError(404, "User not found");
+
+  const otpnew = Math.floor(100000 + Math.random() * 900000).toString();
+  const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 min
+
+  await otp.deleteMany({ email });
+  await otp.create({ email, code: otpnew, expiresAt });
+
+  await sendOtpMail(email, otpnew);
+
+  res.json(new ApiResponse(200, null, "OTP sent to your email"));
+});
+
+const verifyOtp = asyncHandler(async (req, res) => {
+  const { email, code } = req.body;
+  if (!email || !code) throw new ApiError(400, "Email and OTP are required");
+
+  const otpRecord = await otp.findOne({ email, code });
+  if (!otpRecord || otpRecord.expiresAt < new Date()) {
+    throw new ApiError(400, "Invalid or expired OTP");
+  }
+
+  res.json(new ApiResponse(200, null, "OTP verified"));
+});
+
+const resetPassword = asyncHandler(async (req, res) => {
+  const { email, code, newPassword } = req.body;
+  if (!email || !code || !newPassword)
+    throw new ApiError(400, "All fields are required");
+
+  const otpRecord = await otp.findOne({ email, code });
+  if (!otpRecord || otpRecord.expiresAt < new Date()) {
+    throw new ApiError(400, "Invalid or expired OTP");
+  }
+
+  const user = await User.findOne({ email });
+  if (!user) throw new ApiError(404, "User not found");
+
+  user.password = newPassword;
+  await user.save();
+  await otp.deleteMany({ email });
+
+  res.json(new ApiResponse(200, null, "Password reset successful"));
+});
+
+export { registerUser, loginUser, logoutUser , forgotPassword , verifyOtp , resetPassword };

@@ -11,8 +11,7 @@ const addProduct = async (req, res, next) => {
       actualPrice,
       discount,
       ingredients,
-      benefits,
-      rating
+      benefits
     } = req.body;
 
     let photos = [];
@@ -41,7 +40,6 @@ const addProduct = async (req, res, next) => {
     if (discount !== undefined) productData.discount = discount;
     if (ingredients !== undefined) productData.ingredients = Array.isArray(ingredients) ? ingredients : [ingredients];
     if (benefits !== undefined) productData.benefits = Array.isArray(benefits) ? benefits : [benefits];
-    if (rating !== undefined) productData.rating = rating;
 
     const product = await Product.create(productData);
 

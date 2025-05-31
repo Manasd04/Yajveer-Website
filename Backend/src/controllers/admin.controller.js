@@ -21,44 +21,44 @@ const generateAccessAndRefreshTokens = async (userId) => {
   }
 };
 
-const registerAdmin = asyncHandler(async (req, res) => {
-  const { email, password, mobileNumber } = req.body;
-  console.log(email);
-  console.log(req.body);
-  if (
-    // console.log(email);
-    [email, password, mobileNumber].some((field) => field?.trim() === "")
-  ) {
-    throw new ApiError(400, "All fields are required");
-  }
+// const registerAdmin = asyncHandler(async (req, res) => {
+//   const { email, password, mobileNumber } = req.body;
+//   console.log(email);
+//   console.log(req.body);
+//   if (
+//     // console.log(email);
+//     [email, password, mobileNumber].some((field) => field?.trim() === "")
+//   ) {
+//     throw new ApiError(400, "All fields are required");
+//   }
 
-  const existedUser = await Admin.findOne({
-    $or: [{ email }],
-  });
+//   const existedUser = await Admin.findOne({
+//     $or: [{ email }],
+//   });
 
-  if (existedUser) {
-    console.log(email);
-    throw new ApiError(409, "Admin with email already exists");
-  }
+//   if (existedUser) {
+//     console.log(email);
+//     throw new ApiError(409, "Admin with email already exists");
+//   }
 
-  const user = await Admin.create({
-    email,
-    password,
-    mobileNumber,
-  });
+//   const user = await Admin.create({
+//     email,
+//     password,
+//     mobileNumber,
+//   });
 
-  const createdUser = await Admin.findById(user._id).select(
-    "-password -refreshToken"
-  );
+//   const createdUser = await Admin.findById(user._id).select(
+//     "-password -refreshToken"
+//   );
 
-  if (!createdUser) {
-    throw new ApiError(500, "Something went wrong while registering the user");
-  }
+//   if (!createdUser) {
+//     throw new ApiError(500, "Something went wrong while registering the user");
+//   }
 
-  return res
-    .status(201)
-    .json(new ApiResponse(200, createdUser, "Admin registered successfully"));
-});
+//   return res
+//     .status(201)
+//     .json(new ApiResponse(200, createdUser, "Admin registered successfully"));
+// });
 
 const loginAdmin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -93,8 +93,9 @@ const loginAdmin = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: true,
-    sameSite : "None",
-    maxAge: 30 * 24 * 60 * 60 * 1000,
+    sameSite: "None",
+    maxAge: 24 * 60 * 60 * 1000,
+    // domain : "https://yajveerback.vercel.app"
   };
 
   return res
@@ -109,7 +110,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
           accessToken,
           refreshToken,
         },
-        "User logged In Successfully"
+        "Admin logged In Successfully"
       )
     );
 });
@@ -123,19 +124,20 @@ const logoutAdmin = asyncHandler(async (req, res) => {
     req.user._id,
     {
       $set: {
-        refreshTokenadmin: null
+        refreshTokenadmin: null,
       },
     },
     { new: true }
   );
 
-  // const isProduction = process.env.NODE_ENV === "production";
+  const isProduction = process.env.NODE_ENV === "production";
 
   const options = {
     httpOnly: true,
     secure: true,
     sameSite: "None",
-    maxAge: 30 * 24 * 60 * 60 * 1000,
+    maxAge: 24 * 60 * 60 * 1000,
+    // domain : "https://yajveerback.vercel.app",
   };
 
   return res
@@ -145,4 +147,4 @@ const logoutAdmin = asyncHandler(async (req, res) => {
     .json({ success: true, message: "Logged out successfully" });
 });
 
-export { registerAdmin, loginAdmin, logoutAdmin };
+export { loginAdmin, logoutAdmin };

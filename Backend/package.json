@@ -25,6 +25,7 @@
     "mongoose": "^8.15.0",
     "mongoose-paginate-v2": "^1.9.0",
     "multer": "^2.0.0",
+    "nodemailer": "^7.0.3",
     "serverless-http": "^3.2.0"
   }
 }

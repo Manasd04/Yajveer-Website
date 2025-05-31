@@ -7,5 +7,5 @@ const store = configureStore({
     cart: CartSlice,
   },
 });
-
 export default store;
+

@@ -39,12 +39,6 @@ const productSchema = new Schema(
       type: Number,
       required: true,
       min: 0
-    },
-    rating: {
-      type: Number,
-      min: [0, "Rating cannot be negative"],
-      max: [5, "Rating cannot be more than 5"],
-      default : 0 
     }
   },
   { timestamps: true }

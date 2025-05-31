@@ -1,0 +1,547 @@
+/* --- Yajveer Ayurvedic Theme Colors --- */
+:root {
+    --yajveer-primary-green: #4CAF50; /* A fresh, vibrant green for main actions and highlights */
+    --yajveer-light-green: #8BC34A;  /* Lighter green for backgrounds, softer accents */
+    --yajveer-dark-green: #388E3C;   /* Darker green for hover states or deeper elements */
+    --yajveer-text-dark: #212121;    /* Very dark grey for primary text, good readability */
+    --yajveer-text-medium: #424242;  /* Slightly lighter grey for descriptions */
+    --yajveer-bg-light: #F9FBE7;     /* A very light, almost off-white, yellowish-green for backgrounds */
+    --yajveer-border-light: #E0E0E0; /* Light grey for subtle borders */
+    --yajveer-white: #FFFFFF;        /* Pure white for backgrounds */
+    --yajveer-accent-gold: #FFC107;  /* A warm gold for discounts/special callouts */
+    --yajveer-error-red: #D32F2F;    /* Standard red for errors */
+    --yajveer-secondary-btn-bg: #FF9800; /* A warm orange for secondary action (Buy Now) */
+    --yajveer-secondary-btn-hover: #F57C00; /* Darker orange for hover */
+}
+
+/* General Styling & Variables */
+body {
+    font-family: 'Open Sans', 'Arial', sans-serif; /* A clean, modern font */
+    color: var(--yajveer-text-dark);
+    background-color: var(--yajveer-bg-light); /* Light, subtle background */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.product-details-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 40px auto 80px auto;
+    color: var(--yajveer-text-dark);
+}
+
+.loading-state, .error-state, .product-not-found {
+    text-align: center;
+    padding: 50px;
+    font-size: 1.3em;
+    color: var(--yajveer-text-medium);
+    background-color: var(--yajveer-white);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-top: 50px;
+}
+
+.error-state {
+    color: var(--yajveer-error-red);
+    font-weight: bold;
+}
+
+/* Product Details Layout */
+.product-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    background-color: var(--yajveer-white);
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    align-items: flex-start;
+}
+
+/* Product Image Gallery with Slider */
+.product-gallery {
+    flex: 1 1 45%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-image {
+    width: 100%;
+    max-width: 500px; /* Constrain max width for large screens */
+    height: auto;
+    border: 1px solid var(--yajveer-border-light);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: relative; /* Needed for absolute positioning of potential navigation arrows */
+}
+
+.main-image img.slider-image {
+    width: 100%;
+    height: 100%; /* Ensure image fills container */
+    object-fit: contain; /* Or 'cover' if you prefer filling the space, potentially cropping */
+    display: block;
+    animation: fadeIn 0.5s ease-out; /* Simple fade-in for image transitions */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.thumbnail-gallery {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 500px; /* Constrain max width for large screens */
+    margin-top: 10px; /* Space from the main image */
+}
+
+.thumbnail-gallery img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border: 2px solid var(--yajveer-border-light);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out; /* Existing transition for hover/active */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+
+    /* Animation for thumbnail images on load */
+    animation: fadeInSlide 0.5s ease-out forwards;
+    opacity: 0; /* Start invisible */
+    transform: translateY(10px); /* Start slightly below */
+    animation-delay: var(--delay-factor, 0s); /* Staggered delay from JS */
+}
+
+@keyframes fadeInSlide {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.thumbnail-gallery img:hover,
+.thumbnail-gallery img.active {
+    border-color: var(--yajveer-primary-green);
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.placeholder-thumbnail {
+    opacity: 0.6;
+    background-color: var(--yajveer-bg-light); /* Placeholder background */
+}
+
+/* Product Information */
+.product-info {
+    flex: 1 1 50%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    color: var(--yajveer-text-dark);
+    line-height: 1.2;
+}
+
+.product-description {
+    font-size: 1.1em;
+    line-height: 1.7;
+    margin-bottom: 30px;
+    color: var(--yajveer-text-medium);
+}
+
+/* --- Weight Variant Selection Section --- */
+.weight-variant-selection {
+    margin-bottom: 30px;
+    border: 1px solid var(--yajveer-border-light);
+    border-radius: 10px;
+    padding: 20px;
+    background-color: var(--yajveer-bg-light); /* Light green background */
+    box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.weight-variant-selection h3 {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+    color: var(--yajveer-dark-green);
+    border-bottom: 2px solid var(--yajveer-light-green);
+    padding-bottom: 10px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.weight-variant-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--yajveer-border-light);
+}
+
+.weight-variant-item:last-child {
+    border-bottom: none;
+}
+
+.variant-weight {
+    font-weight: 600;
+    font-size: 1.2em;
+    min-width: 100px; /* Ensure consistent width for alignment */
+    color: var(--yajveer-text-dark);
+}
+
+.variant-price-info {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-grow: 1;
+    justify-content: flex-start;
+    padding-left: 20px;
+}
+
+.variant-actual-price {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: var(--yajveer-primary-green);
+}
+
+.variant-original-price {
+    font-size: 1.1em;
+    color: var(--yajveer-text-medium);
+    text-decoration: line-through;
+}
+
+.variant-discount-tag {
+    background-color: var(--yajveer-accent-gold); /* Gold for discounts */
+    color: var(--yajveer-white);
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.85em;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Quantity Controls */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--yajveer-border-light);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-left: auto; /* Pushes to the right */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.quantity-controls button {
+    background-color: var(--yajveer-white);
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    color: var(--yajveer-text-dark);
+    font-weight: bold;
+}
+
+.quantity-controls button:hover:not(:disabled) {
+    background-color: var(--yajveer-light-green);
+    color: var(--yajveer-white);
+    transform: scale(1.02);
+}
+
+.quantity-controls button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.quantity-controls button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.quantity-controls span {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    min-width: 30px;
+    text-align: center;
+    border-left: 1px solid var(--yajveer-border-light);
+    border-right: 1px solid var(--yajveer-border-light);
+    color: var(--yajveer-text-dark);
+    font-weight: 500;
+}
+
+
+/* Ingredients & Benefits (Point-wise styles) */
+.ingredients, .benefits {
+    margin-bottom: 25px;
+}
+
+.ingredients h3, .benefits h3 {
+    font-size: 1.6em;
+    margin-bottom: 15px;
+    color: var(--yajveer-dark-green);
+    border-bottom: 2px solid var(--yajveer-light-green);
+    padding-bottom: 8px;
+    font-weight: 600;
+}
+
+.point-list {
+    list-style: none; /* Remove default bullet points */
+    padding: 0;
+    margin: 0;
+}
+
+.point-item {
+    background-color: var(--yajveer-bg-light); /* Light background for list items */
+    border-left: 5px solid var(--yajveer-primary-green); /* Green accent strip */
+    padding: 10px 20px;
+    margin-bottom: 10px; /* Space between points */
+    border-radius: 6px;
+    font-size: 1.05em;
+    color: var(--yajveer-text-medium);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    line-height: 1.5;
+}
+
+/* --- Action Buttons Container --- */
+.action-buttons {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    gap: 20px; /* Space between buttons */
+    margin-top: 25px;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+/* Global Add to Cart Button */
+.add-to-cart-btn {
+    background-color: var(--yajveer-primary-green);
+    color: var(--yajveer-white);
+    padding: 12px 25px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    flex: 1 1 auto; /* Allow buttons to grow/shrink based on space */
+    max-width: 200px; /* Max width for individual button */
+}
+
+.add-to-cart-btn:hover {
+    background-color: var(--yajveer-dark-green);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+.add-to-cart-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Buy Now Button Specific Styling --- */
+.buy-now-btn {
+    background-color: var(--yajveer-secondary-btn-bg); /* Use the new orange color */
+    color: var(--yajveer-white);
+    padding: 12px 25px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    flex: 1 1 auto; /* Allow buttons to grow/shrink based on space */
+    max-width: 200px; /* Max width for individual button */
+}
+
+.buy-now-btn:hover {
+    background-color: var(--yajveer-secondary-btn-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+.buy-now-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+/* --- Responsive Design --- */
+
+/* Tablet (e.g., 768px - 1024px) */
+@media (max-width: 1024px) {
+    .product-details {
+        flex-direction: column;
+        align-items: center;
+        padding: 25px;
+        gap: 30px;
+    }
+
+    .product-gallery, .product-info {
+        flex: 1 1 100%;
+        max-width: 650px; /* Constrain max width for better readability */
+    }
+
+    .main-image, .thumbnail-gallery {
+        max-width: 100%; /* Allow images to take full width within their flex item */
+    }
+
+    .product-title {
+        font-size: 2.2em;
+        text-align: center;
+    }
+
+    .product-description {
+        text-align: center;
+    }
+
+    .weight-variant-selection {
+        width: 100%;
+        max-width: 550px; /* Constraint width on tablet too */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .weight-variant-item {
+        flex-direction: column; /* Stack weight, price, quantity */
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 0;
+    }
+
+    .variant-price-info {
+        padding-left: 0;
+        justify-content: flex-start;
+        margin-bottom: 5px;
+    }
+
+    .quantity-controls {
+        margin-left: 0; /* Align to left */
+        width: 100%; /* Take full width */
+        max-width: 220px; /* Constrain width */
+    }
+
+    /* Action buttons on tablet */
+    .action-buttons {
+        flex-direction: row; /* Keep them in a row for wider tablets */
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .add-to-cart-btn, .buy-now-btn {
+        flex: 0 1 180px; /* Allow them to shrink, but prefer a set width */
+        font-size: 1.1em;
+        padding: 10px 20px;
+    }
+}
+
+/* Mobile (e.g., up to 767px) */
+@media (max-width: 767px) {
+    .product-details-container {
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 50px;
+    }
+
+    .product-details {
+        padding: 15px;
+        gap: 20px;
+    }
+
+    .product-title {
+        font-size: 2em;
+    }
+
+    .product-description {
+        font-size: 0.95em;
+        text-align: left; /* Align text left on small screens */
+    }
+
+    .thumbnail-gallery {
+        gap: 10px;
+    }
+
+    .thumbnail-gallery img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .weight-variant-selection {
+        padding: 15px;
+    }
+
+    .weight-variant-selection h3 {
+        font-size: 1.4em;
+        margin-bottom: 15px;
+    }
+
+    .weight-variant-item {
+        padding: 10px 0;
+        gap: 5px;
+    }
+
+    .variant-weight {
+        font-size: 1.1em;
+        min-width: 80px;
+    }
+
+    .variant-actual-price {
+        font-size: 1.4em;
+    }
+
+    .variant-original-price {
+        font-size: 1em;
+    }
+
+    .variant-discount-tag {
+        font-size: 0.8em;
+        padding: 3px 8px;
+    }
+
+    .quantity-controls button {
+        padding: 8px 12px;
+        font-size: 1em;
+    }
+
+    .quantity-controls span {
+        padding: 8px 15px;
+        font-size: 1em;
+    }
+
+    .ingredients h3, .benefits h3 {
+        font-size: 1.4em;
+    }
+
+    .point-item { /* Specific mobile adjustment for list items */
+        font-size: 1em;
+        padding: 8px 15px;
+    }
+
+    /* Action buttons on mobile */
+    .action-buttons {
+        flex-direction: column; /* Stack buttons vertically on very small screens */
+        gap: 10px;
+        align-items: center; /* Center stacked buttons */
+    }
+
+    .add-to-cart-btn, .buy-now-btn {
+        width: 100%; /* Take full width when stacked */
+        max-width: 250px; /* Limit overall width even when stacked */
+        font-size: 1.1em;
+        padding: 10px 20px;
+    }
+}
