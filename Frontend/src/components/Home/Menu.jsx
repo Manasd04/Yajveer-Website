@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
+<<<<<<< HEAD
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
+=======
+import { Link } from "react-router-dom";
+>>>>>>> a3a5954af510e7a11f6fe602daa4e225444aeeb4
 import "../../CSS/Home/Menu.css";
 export default function Menu(){
 

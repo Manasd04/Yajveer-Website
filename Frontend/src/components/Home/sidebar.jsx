@@ -1,7 +1,7 @@
 import "../../CSS/Home/sidebar.css";
 import Logo from "../../assets/Yajveer.png";
 import "../../CSS/font.css";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 export default function sidebar({ onOpenSidebar }){
     return(
         <>

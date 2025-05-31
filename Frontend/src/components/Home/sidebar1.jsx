@@ -1,10 +1,14 @@
 import "../../CSS/Home/sidebar1.css";
+<<<<<<< HEAD
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import ErrorPopup from "../ErrorPopup";
 import axios from "axios";
 import LoadingAnimation from "../LoadingAnimation";
 
+=======
+import { Link } from "react-router-dom";
+>>>>>>> a3a5954af510e7a11f6fe602daa4e225444aeeb4
 export default function Sidebar1({ onClose }) {
   const product = [
     { id: 1, Name: "Diabetes Powder" },

@@ -9,7 +9,11 @@ import Footer from "./Footer/Footer";
 import Sidebar from "./Home/sidebar";
 import Sidebar1 from "./Home/sidebar1";
 
+<<<<<<< HEAD
 const Counter = ({ label, duration = 1000, displayValue }) => {
+=======
+const Counter = ({ label, duration = 3000, displayValue }) => {
+>>>>>>> a3a5954af510e7a11f6fe602daa4e225444aeeb4
   const [show, setShow] = useState("0");
 
   useEffect(() => {

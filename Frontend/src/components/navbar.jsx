@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Link } from "react-router";
 import { useState, useEffect } from "react";
 import "../CSS/navbar.css";
@@ -22,6 +23,40 @@ export default function Navbar() {
         `${import.meta.env.VITE_SERVER}/api/v1/users/userlogout`,
         {},
         { withCredentials: true }
+=======
+import React from "react";
+import "../CSS/navbar.css";
+import { Link } from "react-router-dom";
+export default function Navbar() {
+      return (
+        <>
+        <nav className="navbar">
+          <div className="navbar-left">
+            <p>Become A Seller</p>
+             <Link to="/aboutUs" style={{textDecoration : "none" , color : "white"}}><p>About Us</p></Link>
+            <p>Free Delivery</p>
+            <p>Returns Policy</p>
+          </div>
+          <div className="navbar-right">
+            <div className="navbar-dropdown">
+              <p>Help Center</p>
+              <ul className="dropdown-menu">
+                <li>
+                  <i className="bi bi-headset"></i> Call Center
+                </li>
+                <li>
+                  <i className="bi bi-chat-dots"></i> Live Chat
+                </li>
+              </ul>
+            </div>
+            <i className="bi bi-person-circle"></i>
+            <Link to="/login">
+            <button className="account-button">My Account</button>
+            </Link>
+          </div>
+        </nav>
+        </>
+>>>>>>> a3a5954af510e7a11f6fe602daa4e225444aeeb4
       );
 
       const result = response.data;
